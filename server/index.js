@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 5000;
 
 if (!CONNECTION_URL) {
   console.log('Missing DATABASE environment variable in the .env file');
-  process.exit(1); // Exit the application if the variable is missing
+  process.exit(1); 
 }
 
 mongoose
@@ -33,5 +33,5 @@ mongoose
   })
   .catch((error) => {
     console.log(`Error connecting to MongoDB: ${error}`);
-    process.exit(1); // Exit the application if there's an error connecting
+    process.exit(1); 
   });
