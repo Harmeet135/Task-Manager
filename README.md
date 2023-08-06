@@ -1,6 +1,6 @@
 # Task-Manager
 <div align="center">
-  <img src="https://i.imgur.com/ImCpc9a.png"/>
+  <img src="https://i.imgur.com/q8BqcPm.png"/>
 </div>
 
 ## About
