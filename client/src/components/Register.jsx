@@ -13,6 +13,8 @@ const Register = () => {
     status: "todo",
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const setdata = (e) => {
     const { name, value } = e.target;
     setInpval((prevState) => {
@@ -22,44 +24,49 @@ const Register = () => {
       };
     });
   };
- 
+
   const createTaskHandler = () => {
+    if (!inpval.title || !inpval.description || !inpval.status) {
+      setErrorMessage("Please fill in all the fields.");
+      return;
+    }
+
     dispatch(createTask(inpval));
     navigate("/");
   };
 
   return (
     <div className="container mx-auto py-10">
-    <form className="mt-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="mb-4">
-          <label htmlFor="exampleInputTitle" className="block text-lg font-bold mb-1">
-            Title
-          </label>
-          <input
-            type="text"
-            value={inpval.title}
-            onChange={setdata}
-            name="title"
-            className="border border-gray-400 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-            id="exampleInputTitle"
-            aria-describedby="titleHelp"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="exampleInputDescription" className="block text-lg font-bold mb-1">
-            Description
-          </label>
-          <input
-            type="text"
-            value={inpval.description}
-            onChange={setdata}
-            name="description"
-            className="border border-gray-400 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-            id="exampleInputDescription"
-          />
-        </div>
-      
+      <form className="mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="mb-4">
+            <label htmlFor="exampleInputTitle" className="block text-lg font-bold mb-1">
+              Title
+            </label>
+            <input
+              type="text"
+              value={inpval.title}
+              onChange={setdata}
+              name="title"
+              className="border border-gray-400 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+              id="exampleInputTitle"
+              aria-describedby="titleHelp"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="exampleInputDescription" className="block text-lg font-bold mb-1">
+              Description
+            </label>
+            <input
+              type="text"
+              value={inpval.description}
+              onChange={setdata}
+              name="description"
+              className="border border-gray-400 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+              id="exampleInputDescription"
+            />
+          </div>
+
           <div className="mb-4">
             <label htmlFor="exampleInputStatus" className="block text-lg font-bold mb-1">
               Status
@@ -77,9 +84,10 @@ const Register = () => {
             </select>
           </div>
         </div>
-          <button
-        onClick={createTaskHandler}
-          type="submit"
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        <button
+          onClick={createTaskHandler}
+          type="button"
           className="mt-4 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           Submit

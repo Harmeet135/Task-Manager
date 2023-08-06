@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateTask} from "../redux/actions/actions";
+import { updateTask } from "../redux/actions/actions";
 
 const Update = () => {
   const dispatch = useDispatch();
@@ -34,12 +34,17 @@ const Update = () => {
   };
 
   const updateTaskHandler = () => {
+    if (!inpval.title || !inpval.description || !inpval.status) {
+      alert("Please fill in all the fields.");
+      return;
+    }
+
     dispatch(updateTask(id, inpval));
     navigate("/");
   };
 
   if (!task) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   return (
@@ -94,7 +99,7 @@ const Update = () => {
 
         <button
           onClick={updateTaskHandler}
-          type="submit"
+          type="button" 
           className="mt-4 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           Submit
